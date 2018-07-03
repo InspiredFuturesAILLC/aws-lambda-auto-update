@@ -1,0 +1,38 @@
+{
+  "StartAt": "Find Function",
+  "States": {
+    "Find Function" : {
+      "Type":"Task",
+      "Resource":"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:auto-find-lambda",
+      "TimeoutSeconds":300,
+      "Next":"Evaluate Status"
+    },
+    "Evaluate Status": {
+      "Type":"Choice",
+      "Choices": [
+        {
+          "Variable":"$.functionFound",
+          "BooleanEquals":true,
+          "Next":"Deploy Function"
+        },
+        {
+          "Not":{
+            "Variable":"$.token",
+            "StringEquals":""
+          },
+          "Next":"Find Function"
+        }
+      ],
+      "Default":"End"
+    },
+    "Deploy Function": {
+      "Type":"Task",
+      "Resource":"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:auto-deploy-lambda",
+      "TimeoutSeconds": 300,
+      "Next":"End"
+    },
+    "End":{
+      "Type":"Succeed"
+    }
+  }
+}
