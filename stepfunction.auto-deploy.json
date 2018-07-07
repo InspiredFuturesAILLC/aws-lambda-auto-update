@@ -3,7 +3,7 @@
   "States": {
     "Find Function" : {
       "Type":"Task",
-      "Resource":"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:auto-find-lambda",
+      "Resource":"${LambdaAutoFind.Arn}",
       "TimeoutSeconds":300,
       "Next":"Evaluate Status"
     },
@@ -27,7 +27,7 @@
     },
     "Deploy Function": {
       "Type":"Task",
-      "Resource":"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:auto-deploy-lambda",
+      "Resource":"${LambdaAutoDeploy.Arn}",
       "TimeoutSeconds": 300,
       "Next":"End"
     },

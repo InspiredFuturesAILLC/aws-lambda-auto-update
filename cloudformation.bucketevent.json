@@ -1,0 +1,24 @@
+{
+    "Parameters":{
+        "BucketName":{
+            "Description":"The s3 bucket to hook up the event listener to",
+            "Type":"String"
+        },
+        "AutoDeployStackName":{
+            "Description":"The lambda auto deploy stack name",
+            "Type":"String"
+        }
+    },
+    "Resources":{
+        "lambdaPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+                "Action": "lambda:InvokeFunction",
+                "FunctionName": {"Fn::Sub":"${AutoDeployStackName}-s3-hook"},
+                "Principal": "s3.amazonaws.com",
+                "SourceAccount": {"Ref":"AWS::AccountId"},
+                "SourceArn": {"Fn::Sub":"arn:aws:s3:::${BucketName}"}
+            }
+        }
+    }
+}
