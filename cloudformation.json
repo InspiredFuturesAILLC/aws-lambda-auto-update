@@ -90,6 +90,7 @@
                                     "Effect": "Allow",
                                     "Action": [
                                         "lambda:UpdateFunctionCode",
+                                        "s3:GetObject",
                                         "logs:CreateLogGroup",
                                         "logs:CreateLogStream",
                                         "logs:PutLogEvents"
@@ -128,7 +129,7 @@
                     "Statement": [ {
                        "Effect": "Allow",
                        "Principal": {
-                          "Service": [ "lambda.amazonaws.com" ]
+                          "Service": [ "states.amazonaws.com" ]
                        },
                        "Action": [ "sts:AssumeRole" ]
                     } ]  
@@ -190,6 +191,7 @@
                                     "Effect": "Allow",
                                     "Action": [
                                         "stepfunction:StartExecution",
+                                        "states:StartExecution",
                                         "logs:CreateLogGroup",
                                         "logs:CreateLogStream",
                                         "logs:PutLogEvents"

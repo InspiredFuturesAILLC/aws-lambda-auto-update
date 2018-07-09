@@ -43,7 +43,7 @@ exports.handler = (event, context, callback) => {
 
             console.log('getFunctions got the details');
             if(data.Tags && data.Tags.S3Bucket == s3Resource.bucket && data.Tags.S3Key == s3Resource.key){
-                event.targetFunction = data.FunctionName;
+                event.targetFunction = func.FunctionName;
                 event.functionFound = true;
                 callback(null, event);
             } else {
