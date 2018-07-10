@@ -16,7 +16,10 @@ Get-ChildItem -Directory | ForEach-Object {
     if($latest.LastWriteTime -gt $zipObj.LastWriteTime) {
         Push-Location $_
         npm install
-        Remove-Item "../../output/$_.zip" -Force
+        
+		if(!(test-path "../../output/$_.zip")) {
+			Remove-Item "../../output/$_.zip" -Force
+		}
         7z a "../../output/$_.zip" *
         Pop-Location
     }
